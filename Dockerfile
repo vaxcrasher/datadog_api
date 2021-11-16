@@ -10,8 +10,8 @@ RUN npm install --verbose
 # Bundle app source
 COPY . .
 
-# Expose 8080
-EXPOSE 8080
+# Expose 8081
+EXPOSE 8081
 
 # Start the app
 CMD [ "node", "server.js" ]
