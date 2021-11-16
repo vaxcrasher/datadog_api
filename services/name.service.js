@@ -4,7 +4,11 @@ const lib = require('./lib')
 const log = require('./log')
 
 // entropy value used for randomly generating errors. This MUST be at least 5!
-const errorEntropy = 10
+const errorEntropy = 100
+
+// entropy value used for randomly generating delays. This MUST be at least 2!
+const delayEntropy = 100
+const delayMax = 30000
 
 module.exports = { 
     // getName - reads a list of names and picks a first and last name from the list. Returns the data in JSON
@@ -29,6 +33,14 @@ module.exports = {
             "Full": firstName + ' ' + lastName
         }
         log.info(JSON.stringify(name))
+
+        // add a random delay (times in ms)
+        delayStatus = lib.between(1, delayEntropy)
+        if (delayStatus == 1) {
+            delayTime = lib.between(1000, delayMax)
+            log.warn('Delaying for ' + delayTime + ' ms')
+            lib.sleep(delayTime)
+        }
 
         // randomly cause an error based on errorEntropy (400, 403, 500, 503) or send a normal response
         errorStatus = lib.between(1, errorEntropy)
