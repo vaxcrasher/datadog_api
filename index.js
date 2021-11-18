@@ -13,3 +13,11 @@ app.use('/name', name)
 // add the 'word' route
 const word = require('./routes/word')
 app.use('/word', word)
+
+// add the 'sentence' route
+const sentence = require('./routes/sentence')
+app.use('/sentence', sentence)
+
+// add the 'pargraph' route
+const paragraph = require('./routes/paragraph')
+app.use('/paragraph', paragraph)

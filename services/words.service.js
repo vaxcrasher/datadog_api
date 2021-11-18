@@ -11,25 +11,35 @@ const delayEntropy = 100
 const delayMax = 30000
 
 function getSingleWord() {
-        // read the file
         fileName = __dirname + '/data/words.txt'
         data = fs.readFileSync(fileName, 'utf8').toString().split('\n')
         
-        // pick a first and last name from the array
         wordPos = lib.between(0, data.length - 1)
         word = data[wordPos]
-        log.info('Word pos: ' + wordPos)
 
-        // return the word
         return word
 }
 
 function getSingleSentence() {
-
+    wordCount = lib.between(2, 20)
+    sentence = ""
+    for (var i=1; i<= wordCount; i++) {
+        sentence += (i == 1 ? "" : " ") + getSingleWord()
+    }
+    sentence += "."
+    return sentence
 }
 
 function getSingleParagraph() {
-
+    sentenceCount = lib.between(2, 10)
+    paragraph = ""
+    for (var i=1; i<= sentenceCount; i++) {
+        paragraph += getSingleSentence()
+        if (i > 1 && i < sentenceCount) {
+            paragraph += " "
+        }
+    }
+    return paragraph
 }
 
 function delayScript() {
@@ -78,7 +88,29 @@ module.exports = {
 
         // send the response
         sendResponse(res, "word", word)
+    },
+
+    getSentence: (req, res) => {
+        log.info('Getting sentence...')
+        sentence = getSingleSentence()
+        log.info(sentence)
+
+        // delay the script
+        delayScript()
+
+        // send the response
+        sendResponse(res, "sentence", sentence)
+    },
+
+    getParagraph: (req, res) => {
+        log.info('Getting paragraph...')
+        paragraph = getSingleParagraph()
+        log.info(paragraph)
+
+        // delay the script
+        delayScript()
+
+        // send the response
+        sendResponse(res, "paragraph", paragraph)
     }
-
-
 }
