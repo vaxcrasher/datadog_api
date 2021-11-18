@@ -6,19 +6,19 @@ function getTimestamp() {
 
 function info(msg) {
     t = getTimestamp()
-    s = t + ' :: ' + msg
+    s = t + ' :: INFO ' + msg
     console.log(s)
 }
 
 function warn(msg) {
     t = getTimestamp()
-    s = t + ' :: ' + msg
+    s = t + ' :: WARN ' + msg 
     console.warn(s)
 }
 
 function error(msg) {
     t = getTimestamp()
-    s = t + ' :: ' + msg
+    s = t + ' :: ERROR ' + msg
     console.error(s)
 }
 
