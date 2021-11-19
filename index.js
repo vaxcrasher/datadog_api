@@ -21,3 +21,7 @@ app.use('/sentence', sentence)
 // add the 'pargraph' route
 const paragraph = require('./routes/paragraph')
 app.use('/paragraph', paragraph)
+
+// add the 'healthcheck' route
+const healthcheck = require('./routes/healthcheck')
+app.use('/healthcheck', healthcheck)

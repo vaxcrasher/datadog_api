@@ -44,9 +44,16 @@ function getSingleParagraph() {
 
 function delayScript() {
     // add a random delay (times in ms)
-    delayStatus = lib.between(1, delayEntropy)
+    de = errorEntropy
+    dm = delayMax
+    d = new Date()
+    if (d.getMinutes() < 7) {
+        de = de / 3
+        dm = dm * 3
+    }
+    delayStatus = lib.between(1, de)
     if (delayStatus == 1) {
-        delayTime = lib.between(1000, delayMax)
+        delayTime = lib.between(1000, dm)
         log.warn('Delaying for ' + delayTime + ' ms')
         lib.sleep(delayTime)
     }
@@ -54,7 +61,13 @@ function delayScript() {
 
 function sendResponse(res, valueType, value) {
     // randomly cause an error based on errorEntropy (400, 403, 500, 503) or send a normal response
-    errorStatus = lib.between(1, errorEntropy)
+    // in the first 7 minutes of the hour this is 3x more likely to happen
+    ee = errorEntropy
+    d = new Date()
+    if (d.getMinutes() < 7) {
+        ee = ee / 3
+    }
+    errorStatus = lib.between(1, ee)
     if (errorStatus < 5) { 
         log.warn(valueType + ': errorStatus is less than 5 at ' + errorStatus)
     }
